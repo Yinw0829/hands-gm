@@ -1,0 +1,24 @@
+<div class="modal-body wrapper-lg" ng-controller="SelectCtrl">
+      <form name="form-set" class="form-horizontal">
+          <div class="form-group ">
+              <div class="col-sm-12">
+                  <ui-select ng-model="person.selected" theme="bootstrap">
+                      <ui-select-match placeholder="选择新增分类，可以进行搜索">{{$select.selected.name}}</ui-select-match>
+                      <ui-select-choices group-by="'group'" repeat="item in people | filter: $select.search">
+                          <span ng-bind-html="item.name | highlight: $select.search"></span>
+                      </ui-select-choices>
+                  </ui-select>
+              </div>
+          </div>
+          <div class="form-group">
+              <div class="col-sm-12">
+                  <input type="text" class="form-control" placeholder="请输入岗位名称">
+              </div>
+          </div>
+          <div class="form-group">
+              <div class="checkbox m-t-lg">
+                  <button type="submit" class="btn btn-sm btn-success pull-right text-uc m-t-n-xs" ng-click="ok()"><strong>增加</strong></button>
+              </div>
+          </div>
+      </form>
+</div>

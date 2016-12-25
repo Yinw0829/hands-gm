@@ -1,0 +1,148 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">企业列表</h1>
+</div>
+<div class="wrapper-md" ng-controller="enterpriseList">
+    <tabset class="tab-container">
+        <tab>
+            <tab-heading>
+                正常
+            </tab-heading>
+            <div class="wrapper-md">
+                <div class="row">
+                    <div class="col-sm-5 m-b-xs">
+                        <select class="input-sm form-control w-sm inline v-middle" ng-model="province"
+                                ng-options="x.code as x.name for x in cities |cityFilter:null">
+                        </select>
+                        <select class="input-sm form-control w-sm inline v-middle" ng-model="city" ng-show="province"
+                                ng-options="x.id as x.name for x in cities |cityFilter:province">
+                        </select>
+                        <button class="btn btn-sm btn-default">搜索</button>
+                    </div>
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-3" role="search">
+                        <div class="panel-body b-b b-light">
+                            <input id="filter" type="text" placeholder="搜你想要的" class="form-control input-sm w-md inline m-r"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="table-responsive">
+                        <table class="table m-b-none">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>公司名称</th>
+                                <th>省-市</th>
+                                <th data-toggle="true">会员类型</th>
+                                <th>联系人</th>
+                                <th>联系电话</th>
+                                <th data-toggle="true">审核时间</th>
+                                <th data-toggle="true">到期时间</th>
+                                <th>回复率</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="y in enterpriseList">
+                                <td ng-bind="$index+1"></td>
+                                <td ng-bind="y.name"></td>
+                                <td ng-bind="y.province.name+'-'+y.city.name"></td>
+                                <td ng-bind="y.vipStatusName"></td>
+                                <td ng-bind="y.contractPerson"></td>
+                                <td ng-bind="y.userModel.cellPhone"></td>
+                                <td ng-bind="y.regTime"></td>
+                                <td ng-bind="y.expireTime"></td>
+                                <td ng-bind="y.responseRate"></td>
+                                <td>
+                                    <button class="btn  btn-sm btn-success btn-addon" ui-sref="app.enterprise_detailed"
+                                            ng-click="detail(y.id)"><i class="icon icon-grid"></i>详细
+                                    </button>
+                                    <button class="btn  btn-sm btn-danger btn-addon" ng-click="disabled(y)"><i
+                                            class="fa fa-unlock-alt"></i>禁用
+                                    </button>
+                                    <button class="btn  btn-sm btn-primary btn-addon" ng-click="delay('md',y.userId)"><i
+                                            class="fa fa-clock-o"></i>延期
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-sm-12">
+                        <tm-pagination conf="paginationConf"></tm-pagination>
+                    </div>
+                </div>
+            </div>
+        </tab>
+        <tab>
+            <tab-heading>
+                禁用
+            </tab-heading>
+            <div class="wrapper-md">
+                <div class="row">
+                    <div class="col-sm-5 m-b-xs">
+                        <select class="input-sm form-control w-sm inline v-middle" ng-model="province"
+                                ng-options="x.code as x.name for x in cities |cityFilter:null">
+                        </select>
+                        <select class="input-sm form-control w-sm inline v-middle" ng-model="city" ng-show="province"
+                                ng-options="x.id as x.name for x in cities |cityFilter:province">
+                        </select>
+                        <button class="btn btn-sm btn-default">搜索</button>
+                    </div>
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <input type="text" class="input-sm form-control" placeholder="搜你想要的">
+                            <span class="input-group-btn">
+            <button class="btn btn-sm btn-default" type="button">Go!</button>
+          </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="table-responsive">
+                        <table class="table m-b-none">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>公司名称</th>
+                                <th>省-市</th>
+                                <th>会员类型</th>
+                                <th>联系人</th>
+                                <th>联系电话</th>
+                                <th>审核时间</th>
+                                <th>到期时间</th>
+                                <th>回复率</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="x in disabledList">
+                                <td ng-bind="$index+1"></td>
+                                <td ng-bind="x.name"></td>
+                                <td ng-bind="x.province.name+'-'+x.city.name"></td>
+                                <td ng-bind="x.vipStatusName"></td>
+                                <td ng-bind="x.contractPerson"></td>
+                                <td ng-bind="x.userModel.cellPhone"></td>
+                                <td ng-bind="x.regTime"></td>
+                                <td ng-bind="x.expireTime"></td>
+                                <td ng-bind="x.responseRate"></td>
+                                <td>
+                                    <button class="btn  btn-sm btn-success btn-addon"><i class="icon icon-grid"></i>详细
+                                    </button>
+                                    <button class="btn  btn-sm btn-info btn-addon" ng-click="enable(x)"><i
+                                            class="fa fa-unlock"></i>启用
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <tm-pagination conf="disabledConf"></tm-pagination>
+                    </div>
+                </div>
+            </div>
+        </tab>
+    </tabset>
+</div>

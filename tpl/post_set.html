@@ -1,0 +1,92 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">岗位设置</h1>
+</div>
+
+<div class="wrapper-md" ng-controller="SelectCtrl">
+    <div class="row">
+        <!--分类管理-->
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="row wrapper">
+                    <div class="col-sm-12 text-right">
+              <span>
+                    <button class="btn btn-success" ng-click="typeAdd()">添加类别</button>
+              </span>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table m-b-none">
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>类型</th>
+                            <th>岗位数量</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="y in postLists">
+                            <td ng-bind="$index+1"></td>
+                            <td ng-bind="y.name"></td>
+                            <td ng-bind="y.positionCount"></td>
+                            <td>
+                                <button class="btn  btn-sm btn-success btn-addon" ng-click="typeCompile(y.id)"><i
+                                        class="icon icon-grid"></i>编辑
+                                </button>
+                                <button class="btn  btn-sm btn-warning  btn-addon" ng-click="del(y)"><i
+                                        class="icon icon-grid"></i>删除
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--岗位管理-->
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="row wrapper">
+
+                    <div class="col-sm-12 text-right">
+              <span>
+                    <button class="btn btn-success" ng-click="postAdd()">添加分类</button>
+              </span>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table m-b-none">
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>所属分类</th>
+                            <th>岗位名称</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="x in jobLists">
+                            <td ng-bind="$index+1"></td>
+                            <td ng-bind="x.typeName"></td>
+                            <td ng-bind="x.name"></td>
+                            <td>
+                                <button class="btn  btn-sm btn-success btn-addon" ng-click="postCompile(x.id)"><i
+                                        class="icon icon-grid"></i>编辑
+                                </button>
+                                <button class="btn  btn-sm btn-warning  btn-addon" ng-click="postDel(x)"><i
+                                        class="fa fa-ban"></i>删除
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--<div class="row ">-->
+                    <!--<div class="col-sm-12">-->
+                        <!--<tm-pagination conf="paginationConf"></tm-pagination>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,86 @@
+<div class="modal-header h2">
+    招聘详细4
+</div>
+<div class="modal-body wrapper-lg">
+    <div class="row">
+        <div class="wrapper-md">
+            <div class="panel-body">
+                <form name="form" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><strong>招聘标题：</strong></label>
+                        <label class=" control-label" ng-bind="item.title"></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><strong>浏览量：</strong></label>
+                        <label class=" control-label" ng-bind="item.title"></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><strong>投递量：</strong></label>
+                        <label class=" control-label" ng-bind="item.title"></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><strong>招聘岗位：</strong></label>
+                        <label class=" control-label" ng-bind="item.positionModel.name"></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><strong>招聘人数：</strong></label>
+                        <label class="control-label" ng-bind="item.count">3人</label>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><strong>招聘时段：</strong></label>
+                        <label class="control-label"
+                               ng-bind="item.recruitStartTime + '-' + item.recruitEndTime"></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><strong>工作时段：</strong></label>
+                        <label class="control-label" ng-bind="item.jobStartTime + '-' + item.jobEndTime"></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><strong>联系人：</strong></label>
+                        <label class="control-label" ng-bind="item.contractPerson"></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><strong>联系电话：</strong></label>
+                        <label class="control-label" ng-bind="item.contractPhone"></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><strong>工作地点：</strong></label>
+                        <label class="control-label" ng-bind="item.interviewAddressModel.address"></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><strong>职位描述：</strong></label>
+                        <label class="col-sm-10" ng-bind="item.description"></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><strong>申请记录：</strong></label>
+                        <div class="table-responsive">
+                            <table class="table table-striped b-t b-light">
+                                <thead>
+                                <tr>
+                                    <th>姓名</th>
+                                    <th>申请时间</th>
+                                    <th>状态</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>张三</td>
+                                    <td>2015.10.10</td>
+                                    <td>待邀请</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-sm-3 text-right">
+            <button class="btn btn-danger btn-lg btn-addon" ng-click="stop(item.id)">停止招聘</button>
+        </div>
+        <div class="col-sm-4 col-sm-offset-3 text-right">
+            <button class="btn btn-success btn-lg btn-addon" ng-click="ok()">确定</button>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,121 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">用户管理</h1>
+  <small class="text-muted">用于管理平台用户账号</small>
+</div>
+<div class="wrapper-md">
+  <tabset class="tab-container">
+    <tab>
+      <tab-heading>
+        正常
+      </tab-heading>
+      <div class="wrapper-md">
+        <div class="row">
+          <div class="col-sm-5 m-b-xs">
+            <select class="input-sm form-control w-sm inline v-middle">
+              <option value="0">浙江省</option>
+            </select>
+            <select class="input-sm form-control w-sm inline v-middle">
+              <option value="1">嘉兴市</option>
+            </select>
+            <button class="btn btn-sm btn-default">搜索</button>
+          </div>
+          <div class="col-sm-4"></div>
+          <div class="col-sm-3">
+            <div class="input-group">
+              <input type="text" class="input-sm form-control" placeholder="搜你想要的">
+              <span class="input-group-btn">
+            <button class="btn btn-sm btn-default" type="button">Go!</button>
+          </span>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="table-responsive">
+            <table class="table m-b-none" ui-jq="footable" data-filter="#filter" data-page-size="10">
+              <thead>
+              <tr>
+                <th>序号</th>
+                <th>联系电话</th>
+                <th>认证状态</th>
+                <th>省-市</th>
+                <th>注册时间</th>
+                <th>操作</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>1</td>
+                <td>13967314931</td>
+                <td>未认证</td>
+                <td>浙江-嘉兴</td>
+                <td>2016-06-01</td>
+                <td>
+                  <button class="btn  btn-sm btn-success btn-addon"><i class="icon icon-grid"></i>详细</button>
+                  <button class="btn  btn-sm btn-danger btn-addon"><i class="fa  fa-unlock-alt"></i>禁用</button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </tab>
+    <tab>
+      <tab-heading>
+        禁用
+      </tab-heading>
+      <div class="wrapper-md">
+        <div class="row">
+          <div class="col-sm-5 m-b-xs">
+            <select class="input-sm form-control w-sm inline v-middle">
+              <option value="0">浙江省</option>
+            </select>
+            <select class="input-sm form-control w-sm inline v-middle">
+              <option value="1">嘉兴市</option>
+            </select>
+            <button class="btn btn-sm btn-default">搜索</button>
+          </div>
+          <div class="col-sm-4"></div>
+          <div class="col-sm-3">
+            <div class="input-group">
+              <input type="text" class="input-sm form-control" placeholder="搜你想要的">
+              <span class="input-group-btn">
+            <button class="btn btn-sm btn-default" type="button">Go!</button>
+          </span>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="table-responsive">
+            <table class="table table-striped b-t b-light">
+              <thead>
+              <tr>
+                <th>序号</th>
+                <th>联系电话</th>
+                <th>认证状态</th>
+                <th>省-市</th>
+                <th>注册时间</th>
+                <th>操作</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>1</td>
+                <td>13967314931</td>
+                <td>未认证</td>
+                <td>浙江-嘉兴</td>
+                <td>2016-06-01</td>
+                <td>
+                  <button class="btn  btn-sm btn-success btn-addon"><i class="icon icon-grid"></i>详细</button>
+                  <button class="btn  btn-sm btn-info btn-addon"><i class="fa  fa-unlock"></i>启用</button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </tab>
+  </tabset>
+</div>

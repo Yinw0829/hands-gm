@@ -1,0 +1,132 @@
+<!-- list -->
+<ul class="nav">
+  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+    <span>管理后台</span>
+  </li>
+
+  <li ui-sref-active="active">
+    <a ui-sref="app.user">
+      <i class="fa fa-user text-info-lter"></i>
+      <span class="font-bold">用户管理</span>
+    </a>
+  </li>
+  <li>
+    <a href class="auto">
+      <span class="pull-right text-muted">
+        <i class="fa fa-fw fa-angle-right text"></i>
+        <i class="fa fa-fw fa-angle-down text-active"></i>
+      </span>
+      <i class="glyphicon glyphicon-inbox icon text-info-lter"></i>
+      <span class="font-bold">企业管理</span>
+    </a>
+    <ul class="nav nav-sub dk">
+      <li class="nav-sub-header">
+        <a href>
+          <span>企业管理</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.enterprise_audit">
+          <span>企业审核</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.enterprise_list">
+          <span>企业列表</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.jobList">
+          <span>招聘列表</span>
+        </a>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <a href class="auto">
+      <span class="pull-right text-muted">
+        <i class="fa fa-fw fa-angle-right text"></i>
+        <i class="fa fa-fw fa-angle-down text-active"></i>
+      </span>
+      <i class="fa fa-area-chart icon text-info-lter"></i>
+      <span class="font-bold">数据统计</span>
+    </a>
+    <ul class="nav nav-sub dk">
+      <li class="nav-sub-header">
+        <a href>
+          <span>数据统计</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.chart_enterprise">
+          <span>企业统计</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.chart_user">
+          <span>用户统计</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.chart_hands">
+          <span>招聘统计</span>
+        </a>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <a href class="auto">
+      <span class="pull-right text-muted">
+        <i class="fa fa-fw fa-angle-right text"></i>
+        <i class="fa fa-fw fa-angle-down text-active"></i>
+      </span>
+      <i class="fa fa-users icon text-info-lter"></i>
+      <span class="font-bold">权限管理</span>
+    </a>
+    <ul class="nav nav-sub dk">
+      <li class="nav-sub-header">
+        <a href>
+          <span>权限管理</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.role_management">
+          <span>角色管理</span>
+        </a>
+      </li>
+      <!--<li ui-sref-active="active">-->
+        <!--<a ui-sref="app.area_management">-->
+          <!--<span>区域管理</span>-->
+        <!--</a>-->
+      <!--</li>-->
+    </ul>
+  </li>
+  <li>
+    <a href class="auto" ng-class="{active:$state.includes('app.form')}">
+      <span class="pull-right text-muted">
+        <i class="fa fa-fw fa-angle-right text"></i>
+        <i class="fa fa-fw fa-angle-down text-active"></i>
+      </span>
+      <i class="fa fa-cog text-info-lter"></i>
+      <span class="font-bold">系统设置</span>
+    </a>
+    <ul class="nav nav-sub dk">
+      <li class="nav-sub-header">
+        <a href>
+          <span>系统设置</span>
+        </a>
+      </li>
+      <li ui-sref-active="active" >
+        <a ui-sref="app.post_set">
+          <span class="font-bold">岗位设置</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.other_set">
+          <span class="font-bold">其他设置</span>
+        </a>
+      </li>
+    </ul>
+  </li>
+</ul>
+<!-- / list -->

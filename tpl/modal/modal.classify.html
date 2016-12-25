@@ -1,0 +1,20 @@
+<div class="modal-body wrapper-lg">
+      <form name="form-set" class="form-horizontal">
+          <div class="form-group ">
+              <div class="col-sm-12">
+                  <select class="form-control"  ng-model="postCheck.id"  ng-options="y.id as y.name for y in postLists">
+                  </select>
+              </div>
+          </div>
+          <div class="form-group">
+              <div class="col-sm-12">
+                  <input type="text" class="form-control" ng-model="postCheck.name" placeholder="请输入岗位名称">
+              </div>
+          </div>
+          <div class="form-group">
+              <div class="checkbox m-t-lg">
+                  <button type="submit" class="btn btn-sm btn-success pull-right text-uc m-t-n-xs" ng-click="jobName(item.id)"><strong>增加</strong></button>
+              </div>
+          </div>
+      </form>
+</div>

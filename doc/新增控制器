@@ -1,0 +1,29 @@
+---自建控制器的JS文件，以app.controller开头
+/*
+app.controller('demo',['$scope',function ($scope) {
+    $scope.message='浙江'
+}]);
+*/
+---在contact.js中引入相关的控制器
+/*
+.state('app.ui.demo', {
+                  url: '/demo',
+                  templateUrl: 'tpl/ui_demo.html',
+                  resolve: {
+                      deps: ['uiLoad',
+                          function( uiLoad ){
+                              return uiLoad.load( ['js/app/contact/demo.js'] );
+                          }]
+                  }
+              })
+              */
+---在相关的页面新增
+/*
+<div class="wrapper-md" ng-controller="demo">
+  <div class="row">
+    <div class="col-md-12">
+      姓名 {{message}}
+    </div>
+  </div>
+</div>
+*/

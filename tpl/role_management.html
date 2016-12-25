@@ -1,0 +1,54 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">角色管理</h1>
+</div>
+<div class="wrapper-md" ng-controller="ModalDemoCtrl">
+  <div class="panel panel-default">
+    <div class="row wrapper">
+      <div class="col-sm-4">
+        <div class="input-group">
+          <input type="text" class="input-sm form-control" placeholder="可以用电话、公司名称等信息进行搜索">
+          <span class="input-group-btn">
+            <button class="btn btn-sm btn-default" type="button">Go!</button>
+          </span>
+        </div>
+      </div>
+      <div class="col-sm-8 text-right">
+        <button class="btn  btn-sm btn-success btn-addon" ng-click="open('md',urlD[0].urlD3)"><i class="fa fa-plus-square"></i>添加账号</button>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table m-b-none" ui-jq="footable" data-filter="#filter" data-page-size="10">
+        <thead>
+        <tr>
+          <th>序号</th>
+          <th>登录账号</th>
+          <th>联系人</th>
+          <th>联系电话</th>
+          <th>最后登录时间</th>
+          <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>zhoujy</td>
+            <td>周佳缘</td>
+            <td>13967314931</td>
+            <td>2016-08-09 16:30</td>
+            <td>
+              <button class="btn  btn-sm btn-info btn-addon"><i class="icon icon-note"></i>编辑</button>
+              <button class="btn  btn-sm btn-danger btn-addon"><i class="fa fa-ban"></i>删除</button>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot class="hide-if-no-paging">
+        <tr>
+          <td colspan="10" class="text-center">
+            <ul class="pagination"></ul>
+          </td>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>

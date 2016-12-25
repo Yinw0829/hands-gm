@@ -1,0 +1,47 @@
+<div class="modal-header">
+  企业信息
+</div>
+<div class="modal-body wrapper-lg">
+  <div class="row">
+    <div class="col-sm-12">
+      <form role="form" class="form-horizontal">
+        <div class="form-group">
+          <label class="col-sm-3 text-right text-muted control-label">登录账号</label>
+          <label class="col-sm-9 text-left control-label" ng-bind="items.userModel.userName"></label>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 text-right text-muted control-label">企业名称</label>
+          <label class="col-sm-9" ng-bind="items.name"></label>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 text-right text-muted control-label">企业营业执照</label>
+          <label class="col-sm-9" ng-bind="items.creditCode"></label>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 text-right text-muted control-label">联系人</label>
+          <label class="col-sm-9" ng-bind="items.contractPerson"></label>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 text-right text-muted control-label">联系电话</label>
+          <label class="col-sm-9" ng-bind="items.userModel.cellPhone"></label>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 text-right text-muted control-label">试用结束时间</label>
+          <div class="col-sm-6">
+            <input type="date" class="form-control input-sm" ng-model="time">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 text-right text-muted control-label">营业执照</label>
+          <div class="col-sm-9">
+            <img  class="b b-a wrapper-xs bg-white img-responsive" ng-src="http://localhost:8087/hands/upload/IMG/{{items.licenseUrl}}">
+          </div>
+        </div>
+        <div class="checkbox m-t-lg">
+          <button type="button" class="btn btn-sm btn-success pull-right text-uc m-t-n-xs" ng-click="start(items.userId)"><strong>通过</strong></button>
+          <button type="button" class="btn btn-sm btn-danger  text-uc m-t-n-xs" ng-click="stop(items.userId)"><strong>不通过</strong></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

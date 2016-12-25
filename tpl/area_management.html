@@ -1,0 +1,47 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">区域管理</h1>
+</div>
+
+<div class="wrapper-md">
+  <div class="panel panel-default">
+    <div class="row wrapper">
+      <div class="col-sm-4">
+        <div class="input-group">
+          <input type="text" class="input-sm form-control" placeholder="可以用省、负责人姓名进行搜索">
+          <span class="input-group-btn">
+            <button class="btn btn-sm btn-default" type="button">Go!</button>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table m-b-none" ui-jq="footable" data-filter="#filter" data-page-size="10">
+        <thead>
+        <tr>
+          <th>序号</th>
+          <th>省</th>
+          <th>现有负责人</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>浙江省</td>
+            <td>
+              <span class="btn btn-rounded btn-sm btn-info">周佳缘</span>
+              <span class="btn btn-rounded btn-sm btn-info">陆敏琪</span>
+              <span class="btn btn-rounded btn-sm btn-info">殷薇</span>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot class="hide-if-no-paging">
+        <tr>
+          <td colspan="10" class="text-center">
+            <ul class="pagination"></ul>
+          </td>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>

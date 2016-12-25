@@ -1,0 +1,24 @@
+<div class="modal-header">
+    类型删除确认
+</div>
+<div class="modal-body wrapper-lg">
+    <div class="row">
+        <div class="col-sm-12">
+            <form role="form" class="form-horizontal">
+                <div class="form-group text-center">
+                    <label class="text-left">是否将 <span class="text-danger">{{item.name}}</span>删除此账号吗？</label>
+                </div>
+                <div class="form-group">
+                </div>
+                <div class=" m-t-lg">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-6">
+                            <button class="btn  btn-md btn-success btn-addon" ng-click="using(item.id)">删除</button>
+                            <button class="btn  btn-md btn-info btn-addon" ng-click="cancel(item.id)">取消</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

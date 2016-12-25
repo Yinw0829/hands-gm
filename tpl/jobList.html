@@ -1,0 +1,48 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">招聘列表</h1>
+</div>
+<div class="wrapper-md" ng-controller="applicationsList">
+    <div class="panel panel-default">
+        <div class="panel-body b-b b-light">
+            <input id="filter" type="text" placeholder="搜你想要的" class="form-control input-sm w-md inline m-r"/>
+        </div>
+        <div>
+            <table class="table m-b-none" ui-jq="footable" data-filter="#filter">
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>公司名称</th>
+                    <th>招聘岗位</th>
+                    <th>联系人</th>
+                    <th>联系电话</th>
+                    <th>发布时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="f in bringList">
+                    <td ng-bind="$index+1"></td>
+                    <td ng-bind="f.enterpriseInfoUserModel.name"></td>
+                    <td ng-bind="f.positionModel.name"></td>
+                    <td ng-bind="f.contractPerson"></td>
+                    <td ng-bind="f.contractPhone"></td>
+                    <td ng-bind="f.recruitStartTime"></td>
+                    <td>
+                        <button class="btn  btn-sm btn-success btn-addon" ng-click="seeClick(f.id)"><i
+                                class="icon icon-grid"></i>查看详细
+                        </button>
+                    </td>
+                </tr>
+
+                </tbody>
+                <tfoot class="hide-if-no-paging">
+                <tr>
+                    <td colspan="5" class="text-center">
+                        <ul class="pagination"></ul>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
