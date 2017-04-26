@@ -1,8 +1,8 @@
-<div class="hbox hbox-auto-xs hbox-auto-sm">
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="ParticularCtrl">
   <!-- .col -->
   <div class="col w-lg bg-light dk b-r bg-auto" id="aside">
     <div class="wrapper bg b-b">
-      <h5 class="m-n font-thin">嘉兴禾码科技服务有限公司</h5>
+      <h5 class="m-n font-thin" ng-bind="item.name">嘉兴禾码科技服务有限公司</h5>
     </div>
     <div class="wrapper">
       <div class="row">
@@ -10,25 +10,25 @@
           <div class="row row-sm text-center">
             <div class="col-sm-12">
               <div class="panel padder-v bg-success item">
-                <div class="h1 text-white font-thin h1">521</div>
+                <div class="h1 text-white font-thin h1" ng-bind="item.recruitApplySum"></div>
                 <span class="text-muted text-xs">总申请数</span>
               </div>
             </div>
             <div class="col-sm-12">
               <a href class="block panel padder-v bg-primary item">
-                <span class="text-white font-thin h1 block">930</span>
+                <span class="text-white font-thin h1 block" ng-bind="item.recruitCheckInSum"></span>
                 <span class="text-muted text-xs">入职数</span>
               </a>
             </div>
             <div class="col-sm-12">
               <a href class="block panel padder-v bg-info item">
-                <span class="text-white font-thin h1 block">1451</span>
+                <span class="text-white font-thin h1 block" ng-bind="item.recruitRefuseSum">1451</span>
                 <span class="text-muted text-xs">拒绝数</span>
               </a>
             </div>
             <div class="col-sm-12">
               <a href class="block panel padder-v bg-black item">
-                <span class="text-white font-thin h1 block">1451</span>
+                <span class="text-white font-thin h1 block" ng-bind="item.recruitWaitSum">1451</span>
                 <span class="text-muted text-xs">未答复数</span>
               </a>
             </div>

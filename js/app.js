@@ -14,6 +14,7 @@ angular.module('app', [
     'ui.jq',
     'ui.validate',
     'oc.lazyLoad',
+    'ui.services',
     'tm.pagination',
     'pascalprecht.translate'
 

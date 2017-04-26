@@ -1,0 +1,34 @@
+<div class="modal-header">
+  用户详细
+</div>
+<div class="modal-body wrapper-lg">
+  <div class="row">
+    <div class="col-sm-12">
+      <form role="form" class="form-horizontal">
+        <div class="form-group">
+          <label class="col-sm-3 text-right text-muted control-label">登录账号</label>
+          <label class="col-sm-9 text-left control-label" ng-bind="items.userModel.userName"></label>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 text-right text-muted control-label">省-市</label>
+          <label class="col-sm-9" ng-bind="items.name"></label>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 text-right text-muted control-label">联系人</label>
+          <label class="col-sm-9" ng-bind="items.creditCode"></label>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 text-right text-muted control-label">联系电话</label>
+          <label class="col-sm-9" ng-bind="items.contractPerson"></label>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 text-right text-muted control-label">最后登录时间</label>
+          <label class="col-sm-9" ng-bind="items.userModel.cellPhone"></label>
+        </div>
+        <div class="checkbox m-t-lg">
+          <button type="button" class="btn btn-sm btn-success pull-right text-uc m-t-n-xs" ng-click="start(items.userId)"><strong>确定</strong></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -21,7 +21,8 @@
                     <div class="col-sm-4"></div>
                     <div class="col-sm-3" role="search">
                         <div class="panel-body b-b b-light">
-                            <input id="filter" type="text" placeholder="搜你想要的" class="form-control input-sm w-md inline m-r"/>
+                            <input id="filter" type="text" placeholder="搜你想要的"
+                                   class="form-control input-sm w-md inline m-r"/>
                         </div>
                     </div>
                 </div>
@@ -33,11 +34,11 @@
                                 <th>序号</th>
                                 <th>公司名称</th>
                                 <th>省-市</th>
-                                <th data-toggle="true">会员类型</th>
+                                <th>会员类型</th>
                                 <th>联系人</th>
                                 <th>联系电话</th>
-                                <th data-toggle="true">审核时间</th>
-                                <th data-toggle="true">到期时间</th>
+                                <th>审核时间</th>
+                                <th>到期时间</th>
                                 <th>回复率</th>
                                 <th>操作</th>
                             </tr>
@@ -48,15 +49,19 @@
                                 <td ng-bind="y.name"></td>
                                 <td ng-bind="y.province.name+'-'+y.city.name"></td>
                                 <td ng-bind="y.vipStatusName"></td>
-                                <td ng-bind="y.contractPerson"></td>
+                                <td ng-bind="y.contactPerson"></td>
                                 <td ng-bind="y.userModel.cellPhone"></td>
                                 <td ng-bind="y.regTime"></td>
                                 <td ng-bind="y.expireTime"></td>
                                 <td ng-bind="y.responseRate"></td>
                                 <td>
-                                    <button class="btn  btn-sm btn-success btn-addon" ui-sref="app.enterprise_detailed"
-                                            ng-click="detail(y.id)"><i class="icon icon-grid"></i>详细
+                                    <button class="btn  btn-sm btn-success btn-addon"
+                                            ui-sref="app.enterprise_detailed({id:y.userId})"
+                                    ><i class="icon icon-grid"></i>详细
                                     </button>
+                                    <!--<button class="btn  btn-sm btn-success btn-addon" ng-click="particular(y.userId)"-->
+                                    <!--&gt;<i class="icon icon-grid"></i>详细-->
+                                    <!--</button>-->
                                     <button class="btn  btn-sm btn-danger btn-addon" ng-click="disabled(y)"><i
                                             class="fa fa-unlock-alt"></i>禁用
                                     </button>
@@ -69,7 +74,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="row ">
+                <div class="row">
                     <div class="col-sm-12">
                         <tm-pagination conf="paginationConf"></tm-pagination>
                     </div>
@@ -130,7 +135,8 @@
                                 <td ng-bind="x.expireTime"></td>
                                 <td ng-bind="x.responseRate"></td>
                                 <td>
-                                    <button class="btn  btn-sm btn-success btn-addon"><i class="icon icon-grid"></i>详细
+                                    <button class="btn  btn-sm btn-success btn-addon" ng-click="particular()"><i
+                                            class="icon icon-grid"></i>详细
                                     </button>
                                     <button class="btn  btn-sm btn-info btn-addon" ng-click="enable(x)"><i
                                             class="fa fa-unlock"></i>启用
@@ -139,6 +145,10 @@
                             </tr>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
                         <tm-pagination conf="disabledConf"></tm-pagination>
                     </div>
                 </div>

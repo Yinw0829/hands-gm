@@ -1,8 +1,3 @@
-<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="
-    app.settings.asideFolded = false;
-    app.settings.asideDock = false;
-  ">
-  <!-- main -->
   <div class="col">
     <!-- main header -->
     <div class="bg-light lter b-b wrapper-md">
@@ -14,7 +9,7 @@
       </div>
     </div>
     <!-- / main header -->
-    <div class="wrapper-md">
+    <div class="wrapper-md" ng-controller="otherSet">
       <!-- stats -->
       <div class="row">
         <div class="col-sm-6">
@@ -23,11 +18,29 @@
               <div class="panel-heading">
                 <span class="h4">VIP费用设置</span>
               </div>
-              <div class="panel-body">
-                <div class="form-group">
-                  <label>会员服务费</label>
-                  <input type="number" class="form-control" ng-model="user.vip" required >
-                </div>
+              <div class="table-responsive">
+                <table class="table m-b-none">
+                  <thead>
+                  <tr>
+                    <th>序号</th>
+                    <th>时间</th>
+                    <th>费用</th>
+                    <th>操作</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr ng-repeat="y in VIPlist">
+                    <td ng-bind="$index+1"></td>
+                    <td ng-bind="y.typeName"></td>
+                    <td ng-bind="y.fee"></td>
+                    <td>
+                      <button class="btn  btn-sm btn-success btn-addon" ng-click="typeCompile(y)"><i
+                              class="icon icon-grid"></i>编辑
+                      </button>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
               </div>
               <footer class="panel-footer text-right bg-light lter">
                 <button type="submit" class="btn btn-success" >保存</button>
@@ -42,33 +55,36 @@
                 <span class="h4">密码修改</span>
               </div>
               <div class="panel-body">
-                <div class="form-group" ng-class="{'has-error':form.password.$dirty && form.password.$invalid}">
+                <div class="form-group" ng-class="{'has-error':form.oldpassword.$dirty && form.oldpassword.$invalid}">
                   <label>旧密码</label>
-                  <input type="password" name="password" autocomplete="off" ng-required="true" class="form-control" ng-model="user.password" ng-minlength="8"  maxlength="16" required >
-                  <div class="alert alert-danger help-block" ng-show="form.password.$error.minlength">
-                    密码长度有误，请检查。
-                  </div>
+                  <input type="password" name="oldpassword" autocomplete="off" ng-required="true" class="form-control" ng-model="oldpassword" ng-minlength="6"  maxlength="30">
+                  <!--<div class="alert alert-danger help-block" ng-show="form.oldpassword.$error.minlength">-->
+                    <!--密码长度有误，请检查。-->
+                  <!--</div>-->
                 </div>
-                <div class="form-group" ng-class="{'has.error':form.newpassword.$dirty && form.newpassword.$invalid}">
+                <div class="form-group" ng-class="{'has-error':form.password.$dirty && form.password.$invalid}">
                   <label>新密码</label>
-                  <input type="password" name="newpassword" autocomplete="off" class="form-control" ng-model="user.newpassword" required ng-maxlength="16" ng-minlength="8" >
-                  <div class="alert alert-danger help-block" ng-show="form.newpassword.$dirty && form.newpassword.$error.minlength">
+                  <input type="password" name="password" autocomplete="off" ng-required="true" class="form-control" ng-model="password" ng-maxlength="16" ng-minlength="6" >
+                  <div class="alert alert-danger help-block" ng-show="form.password.$dirty && form.password.$error.minlength">
                     新密码长度不能小于6位，请重新输入。
                   </div>
-                  <div class="alert alert-danger help-block" ng-show="form.newpassword.$dirty && form.newpassword.$error.maxlength">
+                  <div class="alert alert-danger help-block" ng-show="form.password.$dirty && form.password.$error.maxlength">
                     新密码长度不能大于16位，请重新输入。
                   </div>
                 </div>
-                <div class="form-group" ng-class="{'has.error':form.passwordConfirm.$dirty && form.passwordConfirm.$invalid}">
-                  <label>确认新密码</label>
-                  <input type="password" name="passwordConfirm" autocomplete="off" class="form-control" ng-model="user.passwordConfirm" required >
-                  <div class="alert alert-danger help-block" ng-show="form.newpassword.$dirty && user.newpassword !== user.passwordConfirm">
+                <div class="form-group" ng-class="{'has-error':form.passwordConfirm.$dirty && form.passwordConfirm.$invalid}">
+                  <label>确认密码</label>
+                  <input type="password" name="passwordConfirm" autocomplete="off" class="form-control" ng-model="passwordConfirm" required >
+                  <div class="alert alert-danger help-block" ng-show="form.password.$dirty && form.passwordConfirm.$dirty && password !== passwordConfirm">
                     二次密码不一致，请检查。
                   </div>
                 </div>
               </div>
+              <div class="text-danger wrapper text-center" ng-show="authError">
+                {{authError}}
+              </div>
               <footer class="panel-footer text-center bg-light lter">
-                <button type="submit" class="btn btn-success" ng-disabled="form.$invalid">修改</button>
+                <button type="submit" class="btn btn-success" ng-click="ok()">修改</button>
               </footer>
             </div>
           </form>

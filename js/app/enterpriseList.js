@@ -1,17 +1,10 @@
 //企业列表
-app.filter('cityFilter', function () {
-    return function (data, parentCode) {
-        var filteData = [];
-        angular.forEach(data, function (obj) {
-            if (obj.parentCode === parentCode) {
-                filteData.push(obj);
-            }
-        });
-        return filteData;
-    }
-});
-app.controller('enterpriseList', ['$scope', '$modal', '$http', '$filter', 'httpServe', '$resource', '$timeout', function ($scope, $modal, $http, $filter, httpServe, $resource, $timeout) {
-    $scope.url = httpServe.httpUrl + 'enterprise/';
+
+app.controller('enterpriseList', ['$scope', '$modal', '$http', '$filter', 'api', '$resource', '$timeout', 'Storage', function ($scope, $modal, $http, $filter, api, $resource, $timeout, Storage) {
+    var cityKey = 'city';
+    $scope.cities = Storage.get(cityKey);
+
+    $scope.url = api.url + 'enterprise/';
     var getNot = $resource(
         $scope.url + ':type',
         {
@@ -21,17 +14,14 @@ app.controller('enterpriseList', ['$scope', '$modal', '$http', '$filter', 'httpS
         {
             getNormal: {method: 'get', params: {certifyStatus: 'SUCCESS', userStatus: 'NORMAL'}, isArray: false},
             getDisBaled: {method: 'get', params: {certifyStatus: 'SUCCESS', userStatus: 'DISABLED'}, isArray: false}
-        });
-    //省市
-    // $http.get('http://localhost:8087/hands/api/districtList').then(function (data) {
-    //     $scope.cities = data.data.rows;
-    // });
-
-    $scope.search = {
-
-    };
-
-
+        }
+    );
+    $scope.$watch('searchParam', function () {
+        $scope.paginationConf.onChange = $filter('filter')($scope.paginationConf.onChange, 'searchParam');
+    });
+    $scope.$watch('searchParam', function () {
+        $scope.paginationConf.onChange = $filter('filter')($scope.paginationConf.onChange, 'searchParam');
+    });
 
     //正常状态
     $scope.paginationConf = {
@@ -52,6 +42,7 @@ app.controller('enterpriseList', ['$scope', '$modal', '$http', '$filter', 'httpS
                     }, function (data) {
                         $scope.paginationConf.totalItems = data.total;
                         $scope.enterpriseList = data.rows;
+                        console.log($scope.enterpriseList);
                     });
             };
             $scope.$watch('paginationConf.currentPage + paginationConf.itemsPerPage', paginationConf)
@@ -99,6 +90,9 @@ app.controller('enterpriseList', ['$scope', '$modal', '$http', '$filter', 'httpS
         modalInstance.result.then(function () {
             $scope.paginationConf.onChange()
         });
+        modalInstance.result.then(function () {
+            $scope.disabledConf.onChange()
+        });
     };
     //启用    禁用状态
     $scope.enable = function (item) {
@@ -118,6 +112,9 @@ app.controller('enterpriseList', ['$scope', '$modal', '$http', '$filter', 'httpS
         modalInstance.result.then(function () {
             $scope.disabledConf.onChange()
         });
+        modalInstance.result.then(function () {
+            $scope.paginationConf.onChange()
+        });
     };
     //延期
     $scope.delay = function (size, id) {
@@ -135,6 +132,64 @@ app.controller('enterpriseList', ['$scope', '$modal', '$http', '$filter', 'httpS
             }
         });
     };
+    //详细
+    // $scope.particular = function (userId) {
+    //     console.log(userId);
+    //     $scope.item = userId;
+    //     console.log($scope.item);
+    //     var modalInstance = $modal.open({
+    //         templateUrl: 'tpl/modal/EnterDetailed.html',
+    //         controller: 'ParticularCtrl',
+    //         size: 'lg',
+    //         scope: $scope,
+    //         resolve: {
+    //             items: function () {
+    //                 return $scope.item;
+    //             }
+    //         }
+    //     });
+    // }
+}]);
+//详细
+app.controller('ParticularCtrl', ['$scope', '$resource', '$http', '$stateParams', 'api', function ($scope, $resource, $http, $stateParams, api) {
+    console.log('ParticularCtrl');
+    var stateId = $stateParams.id;
+    console.log(stateId);
+    // $scope.url=api.url;
+    // var getList=$resource($scope.url,{},{
+    //     getNumber:{
+    //         url:$scope.url+'enterprise/list',
+    //         method:'GET',
+    //         isArray:false
+    //     }
+    // });
+    // getList.getNumber({id:stateId},function (resp) {
+    //     console.log(resp)
+    // });
+    $scope.url = api.url;
+    var getList = $resource($scope.url, {}, {
+        getNor: {
+            url: $scope.url + 'enterprise/list',
+            method: 'GET',
+            isArray: false
+        },
+        getYes:{
+            url: $scope.url + 'recruit/list',
+            method: 'GET',
+            isArray: false
+        }
+    });
+    getList.getNor({id: stateId}, function (resp) {
+        $scope.getEnter = resp.rows;
+        console.log($scope.getEnter);
+    });
+    getList.getYes({enterpriseUserId: stateId},function (resp) {
+        $scope.getOut = resp.rows;
+        console.log($scope.getOut);
+    });
+    // $scope.return = function (id) {
+    //
+    // }
 }]);
 //延期委托控制器
 app.controller('ModalInstanceCtrl', ['$scope', '$modalInstance', '$filter', '$http', 'items', function ($scope, $modalInstance, $filter, $http, items) {
@@ -142,7 +197,6 @@ app.controller('ModalInstanceCtrl', ['$scope', '$modalInstance', '$filter', '$ht
     $scope.time = new Date();
     $scope.delay = function () {
         var myJsDate = $filter('date')($scope.time, 'yyyy-MM-dd');
-        console.log(myJsDate);
         var data = {
             userId: items,
             expireDate: myJsDate
@@ -150,7 +204,7 @@ app.controller('ModalInstanceCtrl', ['$scope', '$modalInstance', '$filter', '$ht
         if ($scope.time) {
             $http({
                 method: 'POST',
-                url: 'http://localhost:8087/hands/manager/api/enterprise/delay',
+                url: 'hands/enterprise/delay',
                 data: data,
                 headers: {'Content-Type': 'application/json'}
             }).success(function (data, status, headers, config) {

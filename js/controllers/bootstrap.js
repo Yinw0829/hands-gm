@@ -116,7 +116,7 @@
     $scope.urlD=[{
       urlD1:'tpl/modal/modal.form.html',
       urlD2:'tpl/modal/modal.form1.html',
-      urlD3:'tpl/modal/modal.addname.html',
+      urlD3:'tpl/modal/modal.add.html',
       urlD4:'tpl/modal/modal.classes.html',
       urlD5:'tpl/modal/modal.classify.html'
     }];

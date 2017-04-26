@@ -25,7 +25,6 @@ app.controller('auditdemo',['$scope','$http','$stateParams','$timeout',function 
         var index=findIndex(id);
         if(index!==-1){
             $scope.Data=$scope.cart[index];
-            console.log($scope.Data);
         }
     },2000);
 

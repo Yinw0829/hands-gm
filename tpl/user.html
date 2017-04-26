@@ -1,8 +1,7 @@
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">用户管理</h1>
-  <small class="text-muted">用于管理平台用户账号</small>
 </div>
-<div class="wrapper-md">
+<div class="wrapper-md" ng-controller="usersList">
   <tabset class="tab-container">
     <tab>
       <tab-heading>
@@ -11,18 +10,18 @@
       <div class="wrapper-md">
         <div class="row">
           <div class="col-sm-5 m-b-xs">
-            <select class="input-sm form-control w-sm inline v-middle">
-              <option value="0">浙江省</option>
+            <select class="input-sm form-control w-sm inline v-middle" ng-model="province"
+                    ng-options="x.code as x.name for x in cities |cityFilter:null">
             </select>
-            <select class="input-sm form-control w-sm inline v-middle">
-              <option value="1">嘉兴市</option>
+            <select class="input-sm form-control w-sm inline v-middle" ng-model="city" ng-show="province"
+                    ng-options="x.id as x.name for x in cities |cityFilter:province">
             </select>
             <button class="btn btn-sm btn-default">搜索</button>
           </div>
           <div class="col-sm-4"></div>
-          <div class="col-sm-3">
+          <div class="col-sm-3" role="search">
             <div class="input-group">
-              <input type="text" class="input-sm form-control" placeholder="搜你想要的">
+              <input id="filter" type="text" placeholder="搜你想要的" class="form-control input-sm w-md inline m-r"/>
               <span class="input-group-btn">
             <button class="btn btn-sm btn-default" type="button">Go!</button>
           </span>
@@ -31,10 +30,12 @@
         </div>
         <div class="panel panel-default">
           <div class="table-responsive">
-            <table class="table m-b-none" ui-jq="footable" data-filter="#filter" data-page-size="10">
+            <table class="table m-b-none">
               <thead>
               <tr>
                 <th>序号</th>
+                <th>用户名</th>
+                <th>姓名</th>
                 <th>联系电话</th>
                 <th>认证状态</th>
                 <th>省-市</th>
@@ -43,20 +44,26 @@
               </tr>
               </thead>
               <tbody>
-              <tr>
-                <td>1</td>
-                <td>13967314931</td>
-                <td>未认证</td>
-                <td>浙江-嘉兴</td>
-                <td>2016-06-01</td>
+              <tr ng-repeat="y in normalList">
+                <td ng-bind="$index+1"></td>
+                <td ng-bind="y.userModel.userName"></td>
+                <td ng-bind="y.name"></td>
+                <td ng-bind="y.userModel.cellPhone"></td>
+                <td ng-bind="y.certifyStatusName"></td>
+                <td ng-bind="y.province.name + '-' + y.city.name"></td>
+                <td ng-bind="y.regTime"></td>
                 <td>
-                  <button class="btn  btn-sm btn-success btn-addon"><i class="icon icon-grid"></i>详细</button>
-                  <button class="btn  btn-sm btn-danger btn-addon"><i class="fa  fa-unlock-alt"></i>禁用</button>
+                  <button class="btn  btn-sm btn-success btn-addon" ng-click="detail(y.userId)"><i class="icon icon-grid"></i>详细</button>
+                  <button class="btn  btn-sm btn-danger btn-addon" ng-click="disabled(y)"><i class="fa  fa-unlock-alt"></i>禁用</button>
                 </td>
               </tr>
               </tbody>
             </table>
-
+          </div>
+        </div>
+        <div class="row ">
+          <div class="col-sm-12">
+            <tm-pagination conf="paginationConf"></tm-pagination>
           </div>
         </div>
       </div>
@@ -68,11 +75,11 @@
       <div class="wrapper-md">
         <div class="row">
           <div class="col-sm-5 m-b-xs">
-            <select class="input-sm form-control w-sm inline v-middle">
-              <option value="0">浙江省</option>
+            <select class="input-sm form-control w-sm inline v-middle" ng-model="province"
+                    ng-options="x.code as x.name for x in cities |cityFilter:null">
             </select>
-            <select class="input-sm form-control w-sm inline v-middle">
-              <option value="1">嘉兴市</option>
+            <select class="input-sm form-control w-sm inline v-middle" ng-model="city" ng-show="province"
+                    ng-options="x.id as x.name for x in cities |cityFilter:province">
             </select>
             <button class="btn btn-sm btn-default">搜索</button>
           </div>
@@ -92,6 +99,8 @@
               <thead>
               <tr>
                 <th>序号</th>
+                <th>用户名</th>
+                <th>姓名</th>
                 <th>联系电话</th>
                 <th>认证状态</th>
                 <th>省-市</th>
@@ -100,19 +109,26 @@
               </tr>
               </thead>
               <tbody>
-              <tr>
-                <td>1</td>
-                <td>13967314931</td>
-                <td>未认证</td>
-                <td>浙江-嘉兴</td>
-                <td>2016-06-01</td>
+              <tr ng-repeat="x in disabledList">
+                <td ng-bind="$index+1"></td>
+                <td ng-bind="x.userModel.userName"></td>
+                <td ng-bind="x.name"></td>
+                <td ng-bind="x.userModel.cellPhone"></td>
+                <td ng-bind="x.certifyStatusName"></td>
+                <td ng-bind="x.province.name + '-' + x.city.name"></td>
+                <td ng-bind="x.regTime"></td>
                 <td>
-                  <button class="btn  btn-sm btn-success btn-addon"><i class="icon icon-grid"></i>详细</button>
-                  <button class="btn  btn-sm btn-info btn-addon"><i class="fa  fa-unlock"></i>启用</button>
+                  <button class="btn  btn-sm btn-success btn-addon" ng-click="detail(x.userId)"><i class="icon icon-grid"></i>详细</button>
+                  <button class="btn  btn-sm btn-info btn-addon" ng-click="enable(x)"><i class="fa  fa-unlock"></i>启用</button>
                 </td>
               </tr>
               </tbody>
             </table>
+          </div>
+        </div>
+        <div class="row ">
+          <div class="col-sm-12">
+            <tm-pagination conf="disabledConf"></tm-pagination>
           </div>
         </div>
       </div>

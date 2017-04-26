@@ -3,74 +3,95 @@
 /* Controllers */
 
 angular.module('app')
-  .controller('AppCtrl', ['$scope', '$translate', '$localStorage', '$window', 
-    function(              $scope,   $translate,   $localStorage,   $window ) {
-      // add 'ie' classes to html
-      var isIE = !!navigator.userAgent.match(/MSIE/i);
-      isIE && angular.element($window.document.body).addClass('ie');
-      isSmartDevice( $window ) && angular.element($window.document.body).addClass('smart');
+    .controller('AppCtrl', ['$scope', '$translate', '$localStorage', '$window', '$state', 'Storage',
+        function ($scope, $translate, $localStorage, $window, $state, Storage) {
+            // add 'ie' classes to
+            $scope.$on('user.login',function () {
+                $scope.userRole=Storage.get('user');
+            });
 
-      // config
-      $scope.app = {
-        name: 'Hands-Admin',
-        version: '版本号：V 1.0.0',
-        // for chart colors
-        color: {
-          primary: '#7266ba',
-          info:    '#23b7e5',
-          success: '#27c24c',
-          warning: '#fad733',
-          danger:  '#f05050',
-          light:   '#e8eff0',
-          dark:    '#3a3f51',
-          black:   '#1c2b36'
-        },
-        settings: {
-          themeID: 1,
-          navbarHeaderColor: 'bg-black',
-          navbarCollapseColor: 'bg-white-only',
-          asideColor: 'bg-black',
-          headerFixed: true,
-          asideFixed: false,
-          asideFolded: false,
-          asideDock: false,
-          container: false
-        }
-      };
+            window.onbeforeunload = function (e) {
+                function removeSex() {
+                    var remove = e.currentTarget.localStorage.removeItem('sex')
+                }
 
-      // save settings to local storage
-      if ( angular.isDefined($localStorage.settings) ) {
-        $scope.app.settings = $localStorage.settings;
-      } else {
-        $localStorage.settings = $scope.app.settings;
-      }
-      $scope.$watch('app.settings', function(){
-        if( $scope.app.settings.asideDock  &&  $scope.app.settings.asideFixed ){
-          // aside dock and fixed must set the header fixed.
-          $scope.app.settings.headerFixed = true;
-        }
-        // save to local storage
-        $localStorage.settings = $scope.app.settings;
-      }, true);
+                removeSex();
+            };
+            window.onbeforeunload = function (e) {
+                function removeUser() {
+                    var remove = e.currentTarget.localStorage.removeItem('user')
+                }
 
-      // angular translate
-      $scope.lang = { isopen: false };
-      $scope.langs = {en:'English', de_DE:'German', it_IT:'Italian'};
-      $scope.selectLang = $scope.langs[$translate.proposedLanguage()] || "English";
-      $scope.setLang = function(langKey, $event) {
-        // set the current lang
-        $scope.selectLang = $scope.langs[langKey];
-        // You can change the language during runtime
-        $translate.use(langKey);
-        $scope.lang.isopen = !$scope.lang.isopen;
-      };
+                removeUser();
+            };
+            var isIE = !!navigator.userAgent.match(/MSIE/i);
+            isIE && angular.element($window.document.body).addClass('ie');
+            isSmartDevice($window) && angular.element($window.document.body).addClass('smart');
+            $scope.loginOut = function () {
+                $state.go("access.signin");
+                Storage.remove('sex');
+                Storage.remove('user');
+            };
+            // config
+            $scope.app = {
+                name: '管理后台',
+                version: '版本号：V 1.0.0',
+                // for chart colors
+                color: {
+                    primary: '#7266ba',
+                    info: '#23b7e5',
+                    success: '#27c24c',
+                    warning: '#fad733',
+                    danger: '#f05050',
+                    light: '#e8eff0',
+                    dark: '#3a3f51',
+                    black: '#1c2b36'
+                },
+                settings: {
+                    themeID: 1,
+                    navbarHeaderColor: 'bg-black',
+                    navbarCollapseColor: 'bg-white-only',
+                    asideColor: 'bg-black',
+                    headerFixed: true,
+                    asideFixed: false,
+                    asideFolded: false,
+                    asideDock: false,
+                    container: false
+                }
+            };
 
-      function isSmartDevice( $window )
-      {
-          // Adapted from http://www.detectmobilebrowsers.com
-          var ua = $window['navigator']['userAgent'] || $window['navigator']['vendor'] || $window['opera'];
-          // Checks for iOs, Android, Blackberry, Opera Mini, and Windows mobile devices
-          return (/iPhone|iPod|iPad|Silk|Android|BlackBerry|Opera Mini|IEMobile/).test(ua);
-      }
+            // save settings to local storage
+            if (angular.isDefined($localStorage.settings)) {
+                $scope.app.settings = $localStorage.settings;
+            } else {
+                $localStorage.settings = $scope.app.settings;
+            }
+            $scope.$watch('app.settings', function () {
+                if ($scope.app.settings.asideDock && $scope.app.settings.asideFixed) {
+                    // aside dock and fixed must set the header fixed.
+                    $scope.app.settings.headerFixed = true;
+                }
+                // save to local storage
+                $localStorage.settings = $scope.app.settings;
+            }, true);
 
-  }]);
+            // angular translate
+            $scope.lang = {isopen: false};
+            $scope.langs = {en: 'English', de_DE: 'German', it_IT: 'Italian'};
+            $scope.selectLang = $scope.langs[$translate.proposedLanguage()] || "English";
+            $scope.setLang = function (langKey, $event) {
+                // set the current lang
+                $scope.selectLang = $scope.langs[langKey];
+                // You can change the language during runtime
+                $translate.use(langKey);
+                $scope.lang.isopen = !$scope.lang.isopen;
+            };
+
+            function isSmartDevice($window) {
+                // Adapted from http://www.detectmobilebrowsers.com
+                var ua = $window['navigator']['userAgent'] || $window['navigator']['vendor'] || $window['opera'];
+                // Checks for iOs, Android, Blackberry, Opera Mini, and Windows mobile devices
+                return (/iPhone|iPod|iPad|Silk|Android|BlackBerry|Opera Mini|IEMobile/).test(ua);
+            }
+
+        }]);

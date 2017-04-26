@@ -1,10 +1,5 @@
-<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="
-    app.settings.asideFolded = false;
-    app.settings.asideDock = false;
-  ">
-    <!-- main -->
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="appRecruit">
     <div class="col">
-        <!-- main header -->
         <div class="bg-light lter b-b wrapper-md">
             <div class="row">
                 <div class="col-sm-6 col-xs-12">
@@ -12,50 +7,47 @@
                 </div>
             </div>
         </div>
-        <!-- / main header -->
-
-        <!-- stats -->
         <div class="wrapper-md">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="row row-sm text-center">
                         <div class="col-sm-2">
                             <div class="panel padder-v bg-success item">
-                                <div class="h1 text-white font-thin h2">服务员(1000)</div>
+                                <div class="h1 text-white font-thin h2" ng-bind="DayLogin.result"></div>
                                 <span class="text-muted text-xs">今日热门招聘</span>
                             </div>
                         </div>
 
                         <div class="col-sm-2">
                             <div class="panel padder-v bg-info item">
-                                <div class="h1 text-white font-thin h2">服务员(1000)</div>
+                                <div class="h1 text-white font-thin h2" ng-bind="WeekLogin.result"></div>
                                 <span class="text-muted text-xs">本周热门招聘</span>
                             </div>
                         </div>
 
                         <div class="col-sm-2">
                             <div class="panel padder-v bg-dark item">
-                                <div class="h1 text-white font-thin h2">服务员(1000)</div>
+                                <div class="h1 text-white font-thin h2" ng-bind="MonthLogin.result"></div>
                                 <span class="text-muted text-xs">本月热门招聘</span>
                             </div>
                         </div>
                         <div class="col-sm-2">
                             <div class="panel padder-v bg-success item">
-                                <div class="h1 text-white font-thin h2">服务员(1000)</div>
+                                <div class="h1 text-white font-thin h2" ng-bind="DayAttes.result"></div>
                                 <span class="text-muted text-xs">今日热门求职</span>
                             </div>
                         </div>
 
                         <div class="col-sm-2">
                             <div class="panel padder-v bg-info item">
-                                <div class="h1 text-white font-thin h2">服务员(1000)</div>
+                                <div class="h1 text-white font-thin h2" ng-bind="WeekAttes.result"></div>
                                 <span class="text-muted text-xs">本周热门求职</span>
                             </div>
                         </div>
 
                         <div class="col-sm-2">
                             <div class="panel padder-v bg-dark item">
-                                <div class="h1 text-white font-thin h2">服务员(1000)</div>
+                                <div class="h1 text-white font-thin h2" ng-bind="MonthAttes.result"></div>
                                 <span class="text-muted text-xs">本月热门求职</span>
                             </div>
                         </div>
@@ -73,43 +65,34 @@
                                 今日统计
                             </tab-heading>
                             <div class="wrapper-md">
-                                <div class="row">
-                                    <div class="col-sm-5 m-b-xs">
-                                        <select class="input-sm form-control w-sm inline v-middle">
-                                            <option value="0">市场</option>
-                                        </select>
-                                        <select class="input-sm form-control w-sm inline v-middle">
-                                            <option value="1">服务员</option>
-                                        </select>
-                                    </div>
-                                </div>
                                 <div class="panel panel-default">
                                     <div class="table-responsive">
-                                        <table class="table m-b-none" ui-jq="footable" data-filter="#filter" data-page-size="10">
+                                        <table class="table m-b-none" ui-jq="footable" data-filter="#filter"
+                                               data-page-size="10">
                                             <thead>
-                                                <tr>
-                                                    <th>排名</th>
-                                                    <th>岗位</th>
-                                                    <th>招聘量</th>
-                                                    <th>求职量</th>
-                                                </tr>
+                                            <tr>
+                                                <th>排名</th>
+                                                <th>岗位</th>
+                                                <th>招聘量</th>
+                                                <th>求职量</th>
+                                            </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>服务员</td>
-                                                    <td>30</td>
-                                                    <td>20</td>
-                                                </tr>
+                                            <tr ng-repeat="z in DayList">
+                                                <td ng-bind="$index+1"></td>
+                                                <td ng-bind="z.positionName"></td>
+                                                <td ng-bind="z.publishCount"></td>
+                                                <td ng-bind="z.applyCount"></td>
+                                            </tr>
                                             </tbody>
                                             <tfoot class="hide-if-no-paging">
-                                                <tr>
-                                                    <td colspan="10" class="text-center">
-                                                        <ul class="pagination"></ul>
-                                                    </td>
-                                                </tr>
                                             </tfoot>
                                         </table>
+                                    </div>
+                                </div>
+                                <div class="row ">
+                                    <div class="col-sm-12 text-center">
+                                        <tm-pagination conf="dayConf"></tm-pagination>
                                     </div>
                                 </div>
                             </div>
@@ -119,43 +102,34 @@
                                 本周统计
                             </tab-heading>
                             <div class="wrapper-md">
-                                <div class="row">
-                                    <div class="col-sm-5 m-b-xs">
-                                        <select class="input-sm form-control w-sm inline v-middle">
-                                            <option value="0">市场</option>
-                                        </select>
-                                        <select class="input-sm form-control w-sm inline v-middle">
-                                            <option value="1">服务员</option>
-                                        </select>
-                                    </div>
-                                </div>
                                 <div class="panel panel-default">
                                     <div class="table-responsive">
-                                        <table class="table m-b-none" ui-jq="footable" data-filter="#filter" data-page-size="10">
+                                        <table class="table m-b-none" ui-jq="footable" data-filter="#filter"
+                                               data-page-size="10">
                                             <thead>
-                                                <tr>
-                                                    <th>排名</th>
-                                                    <th>岗位</th>
-                                                    <th>招聘量</th>
-                                                    <th>求职量</th>
-                                                </tr>
+                                            <tr>
+                                                <th>排名</th>
+                                                <th>岗位</th>
+                                                <th>招聘量</th>
+                                                <th>求职量</th>
+                                            </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>服务员</td>
-                                                    <td>30</td>
-                                                    <td>20</td>
-                                                </tr>
+                                            <tr ng-repeat="x in WeekList">
+                                                <td ng-bind="$index+1"></td>
+                                                <td ng-bind="x.positionName"></td>
+                                                <td ng-bind="x.publishCount"></td>
+                                                <td ng-bind="x.applyCount"></td>
+                                            </tr>
                                             </tbody>
                                             <tfoot class="hide-if-no-paging">
-                                                <tr>
-                                                    <td colspan="10" class="text-center">
-                                                        <ul class="pagination"></ul>
-                                                    </td>
-                                                </tr>
                                             </tfoot>
                                         </table>
+                                    </div>
+                                </div>
+                                <div class="row ">
+                                    <div class="col-sm-12 text-center">
+                                        <tm-pagination conf="disabledConf"></tm-pagination>
                                     </div>
                                 </div>
                             </div>
@@ -165,43 +139,34 @@
                                 本月统计
                             </tab-heading>
                             <div class="wrapper-md">
-                                <div class="row">
-                                    <div class="col-sm-5 m-b-xs">
-                                        <select class="input-sm form-control w-sm inline v-middle">
-                                            <option value="0">市场</option>
-                                        </select>
-                                        <select class="input-sm form-control w-sm inline v-middle">
-                                            <option value="1">服务员</option>
-                                        </select>
-                                    </div>
-                                </div>
                                 <div class="panel panel-default">
                                     <div class="table-responsive">
-                                        <table class="table m-b-none" ui-jq="footable" data-filter="#filter" data-page-size="10">
+                                        <table class="table m-b-none" ui-jq="footable" data-filter="#filter"
+                                               data-page-size="10">
                                             <thead>
-                                                <tr>
-                                                    <th>排名</th>
-                                                    <th>岗位</th>
-                                                    <th>招聘量</th>
-                                                    <th>求职量</th>
-                                                </tr>
+                                            <tr>
+                                                <th>排名</th>
+                                                <th>岗位</th>
+                                                <th>招聘量</th>
+                                                <th>求职量</th>
+                                            </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>服务员</td>
-                                                    <td>30</td>
-                                                    <td>20</td>
-                                                </tr>
+                                            <tr ng-repeat="y in MonthList">
+                                                <td ng-bind="$index+1"></td>
+                                                <td ng-bind="y.positionName"></td>
+                                                <td ng-bind="y.publishCount"></td>
+                                                <td ng-bind="y.applyCount"></td>
+                                            </tr>
                                             </tbody>
                                             <tfoot class="hide-if-no-paging">
-                                                <tr>
-                                                    <td colspan="10" class="text-center">
-                                                        <ul class="pagination"></ul>
-                                                    </td>
-                                                </tr>
                                             </tfoot>
                                         </table>
+                                    </div>
+                                </div>
+                                <div class="row ">
+                                    <div class="col-sm-12 text-center">
+                                        <tm-pagination conf="paginationConf"></tm-pagination>
                                     </div>
                                 </div>
                             </div>

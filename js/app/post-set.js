@@ -1,36 +1,25 @@
-app.controller('SelectCtrl', ['$scope', '$modal', '$log', '$http', '$resource', 'httpServe', function ($scope, $modal, $log, $http, $resource, httpServe) {
-    $scope.url = httpServe.httpUrl + 'position/';
+app.controller('SelectCtrl', ['$scope', '$modal', '$log', '$http', '$resource', 'api', 'dataListService', function ($scope, $modal, $log, $http, $resource, api, dataListService) {
+    $scope.url = api.url + 'position/';
     var getSelect = $resource(
-        $scope.url + ':type'
+        $scope.url + ':type',
+        {
+            id: '@id'
+        },
+        {
+            getPostCompile:{
+                url:$scope.url+'load',
+                method:'GET',
+                isArray:false
+            }
+        }
     );
     getSelect.get({type: 'type/list'}, function (data) {
         $scope.postLists = data.rows;
+        console.log($scope.postLists);
     });
     getSelect.get({type: 'list'}, function (data) {
         $scope.jobLists = data.rows;
     });
-
-    //分页
-    // $scope.paginationConf = {
-    //     currentPage: 1,
-    //     totalItems: 25,
-    //     itemsPerPage: 10,
-    //     pagesLength: 21,
-    //     perPageOptions: [10, 20, 25, 50, 100],
-    //     onChange: function () {
-    //         var paginationConf = function () {
-    //             getSelect.jobLists(
-    //                 {
-    //                     curPage: $scope.paginationConf.currentPage,
-    //                     pageSize: $scope.paginationConf.itemsPerPage
-    //                 }, function (data) {
-    //                     $scope.paginationConf.totalItems = data.total;
-    //                     $scope.jobLists = data.rows;
-    //                 });
-    //         };
-    //         $scope.$watch('paginationConf.currentPage + paginationConf.itemsPerPage', paginationConf)
-    //     }
-    // };
 
     //遍历
     function findIndex(id) {
@@ -53,7 +42,7 @@ app.controller('SelectCtrl', ['$scope', '$modal', '$log', '$http', '$resource', 
                 index = key;
                 return;
             }
-            console.log(id);
+            // console.log(id);
         });
         //结果
         return index;
@@ -61,12 +50,13 @@ app.controller('SelectCtrl', ['$scope', '$modal', '$log', '$http', '$resource', 
 
     //编辑
     $scope.typeCompile = function (id) {
-        // console.log(id);
         var index = findIndex(id);
         if (index !== -1) {
-            //index是id在$scope.postLists对象中的位置
             $scope.item = $scope.postLists[index];
         }
+        getSelect.get({type: 'type/load'}, {id: id}, function (data) {
+            $scope.item = data.result;
+        });
         var modalInstance = $modal.open({
             templateUrl: 'tpl/modal/modal.classes.html',
             controller: 'ModalcheckCtrl',
@@ -81,10 +71,10 @@ app.controller('SelectCtrl', ['$scope', '$modal', '$log', '$http', '$resource', 
     };
     //岗位编辑
     $scope.postCompile = function (id) {
-        var index = compileIndex(id);
-        if (index !== -1) {
-            $scope.item = $scope.jobLists[index];
-        }
+        console.log(id);
+        getSelect.getPostCompile({id:id},function (resp) {
+            $scope.jobList=resp.result
+        });
         var modalInstance = $modal.open({
             templateUrl: 'tpl/modal/modal.compile.html',
             controller: 'typeCompileCtrl',
@@ -92,10 +82,15 @@ app.controller('SelectCtrl', ['$scope', '$modal', '$log', '$http', '$resource', 
             scope: $scope,
             resolve: {
                 items: function () {
-                    return $scope.item;
+                    return $scope.jobList;
                 }
             }
         });
+        modalInstance.result.then(function () {
+            getSelect.get({type: 'list'}, function (data) {
+                $scope.jobLists = data.rows;
+            });
+        })
     };
     //类型删除
     $scope.del = function (item) {
@@ -143,6 +138,7 @@ app.controller('SelectCtrl', ['$scope', '$modal', '$log', '$http', '$resource', 
         modalInstance.result.then(function () {
             getSelect.get({type: 'list'}, function (data) {
                 $scope.jobLists = data.rows;
+                con
             });
         })
     };
@@ -170,7 +166,6 @@ app.controller('SelectCtrl', ['$scope', '$modal', '$log', '$http', '$resource', 
 }]);
 //岗位删除
 app.controller('jobDelCtrl', ['$scope', '$modalInstance', 'items', '$resource', function ($scope, $modalInstance, items, $resource) {
-    console.log(items);
     var jobDel = $resource(
         $scope.url + 'del',
         {id: "@id"},
@@ -186,7 +181,8 @@ app.controller('jobDelCtrl', ['$scope', '$modalInstance', 'items', '$resource', 
 }]);
 //类型删除
 app.controller('typeDelCtrl', ['$scope', '$modalInstance', 'items', '$resource', function ($scope, $modalInstance, items, $resource) {
-    console.log(items);
+    var auError = true;
+    var authError = false;
     var typeDel = $resource(
         $scope.url + 'type/del',
         {id: "@id"},
@@ -194,28 +190,35 @@ app.controller('typeDelCtrl', ['$scope', '$modalInstance', 'items', '$resource',
     $scope.using = function (id) {
         typeDel.dataDelete({id: id}, function (data) {
             $modalInstance.close(items);
-        })
+        });
+        // if ($scope.positionCount == 0){
+        //     typeDel.dataDelete({id: id}, function (data) {
+        //         $modalInstance.close(items);
+        //     })
+        // }else{
+        //     $scope.authError = '已有数据，不能删除！'
+        // }
     };
     $scope.cancel = function (id) {
         $modalInstance.close(items);
     }
 }]);
 //编辑委托控制器
-app.controller('typeCompileCtrl', ['$scope', '$modalInstance', 'items', '$resource', function ($scope, $modalInstance, items, $resource) {
-    console.log(items);
-    $scope.jobCheck = items;
-    var jobName = $resource($scope.url + 'modify');
-    $scope.jobName = function (id) {
-        jobName.save({},
-            {
-                name: $scope.jobCheck.name,
-                id: $scope.jobCheck.id,
-                typeId: $scope.jobCheck.typeId
-            },
-            function () {
-                $modalInstance.close(items);
-            })
+app.controller('typeCompileCtrl', ['$scope', '$modalInstance', 'items', 'dataListService', function ($scope, $modalInstance, items, dataListService) {
+    $scope.jobList = items;
+    var jobUrl = 'position/modify';
+    $scope.setData = {
+        name: $scope.jobList.name,
+        id: $scope.jobList.id,
+        typeId: $scope.jobList.typeId
     };
+    $scope.jobName = function () {
+        dataListService.dataListUrl(jobUrl, $scope.setData);
+    };
+    $scope.$on('dataList.Service', function () {
+        $scope.respTip = dataListService.successList();
+        $modalInstance.close(items);
+    });
 }]);
 //岗位新增委托控制器
 app.controller('postAddController', ['$scope', '$modalInstance', '$resource', function ($scope, $modalInstance, $resource) {
@@ -237,11 +240,10 @@ app.controller('ModalInstanceCtrl', ['$scope', '$modalInstance', '$resource', fu
 }]);
 //编辑委托控制器
 app.controller('ModalcheckCtrl', ['$scope', '$modalInstance', 'items', '$resource', function ($scope, $modalInstance, items, $resource) {
-    console.log(items);
     $scope.postCheck = items;
     var redact = $resource($scope.url + 'type/modify');
     $scope.redact = function (id) {
-        redact.save({},
+        redact.save(
             {
                 id: $scope.postCheck.id,
                 name: $scope.postCheck.name

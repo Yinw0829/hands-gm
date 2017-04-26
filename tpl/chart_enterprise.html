@@ -1,10 +1,5 @@
-<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="
-    app.settings.asideFolded = false;
-    app.settings.asideDock = false;
-  ">
-    <!-- main -->
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="listByStat">
     <div class="col">
-        <!-- main header -->
         <div class="bg-light lter b-b wrapper-md">
             <div class="row">
                 <div class="col-sm-6 col-xs-12">
@@ -12,28 +7,25 @@
                 </div>
             </div>
         </div>
-        <!-- / main header -->
-
-        <!-- stats -->
         <div class="wrapper-md">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="row row-sm text-center">
-                        <div class="col-sm-4">
-                            <div class="panel padder-v bg-success item">
-                                <div class="h1 text-white font-thin h1">521</div>
+                        <div class="col-sm-4" >
+                            <div class="block panel padder-v bg-success item">
+                                <div class="h1 text-white font-thin h1 block" ng-bind="DayLists.result"></div>
                                 <span class="text-muted text-xs">今日注册量</span>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <a href class="block panel padder-v bg-primary item">
-                                <span class="text-white font-thin h1 block">930</span>
+                                <span class="text-white font-thin h1 block" ng-bind="WeekLists.result"></span>
                                 <span class="text-muted text-xs">本周注册量</span>
                             </a>
                         </div>
                         <div class="col-sm-4">
                             <a href class="block panel padder-v bg-info item">
-                                <span class="text-white font-thin h1 block">1451</span>
+                                <span class="text-white font-thin h1 block"  ng-bind="MonthLists.result"></span>
                                 <span class="text-muted text-xs">本月注册量</span>
                             </a>
                         </div>
@@ -41,7 +33,6 @@
                 </div>
             </div>
         </div>
-        <!-- / stats -->
         <div class="wrapper-md">
             <div class="row">
                 <div class="col-sm-12">
@@ -53,12 +44,14 @@
                             <div class="wrapper-md">
                                 <div class="row">
                                     <div class="col-sm-5 m-b-xs">
-                                        <select class="input-sm form-control w-sm inline v-middle">
-                                            <option value="0">浙江省</option>
+                                        <select class="input-sm form-control w-sm inline v-middle" ng-model="province"
+                                                ng-options="x.code as x.name for x in cities |cityFilter:null">
                                         </select>
-                                        <select class="input-sm form-control w-sm inline v-middle">
-                                            <option value="1">嘉兴市</option>
+                                        <select class="input-sm form-control w-sm inline v-middle" ng-model="city"
+                                                ng-show="province"
+                                                ng-options="x.id as x.name for x in cities |cityFilter:province">
                                         </select>
+                                        <button class="btn btn-sm btn-default">搜索</button>
                                     </div>
                                 </div>
                                 <div class="panel panel-default">
@@ -75,22 +68,22 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>浙江省</td>
-                                                <td>嘉兴市</td>
-                                                <td>30</td>
-                                                <td>20</td>
+                                            <tr ng-repeat="z in DayList">
+                                                <td ng-bind="$index+1"></td>
+                                                <td ng-bind="z.provinceName"></td>
+                                                <td ng-bind="z.cityName"></td>
+                                                <td ng-bind="z.regCount"></td>
+                                                <td ng-bind="z.certifyCount"></td>
                                             </tr>
                                             </tbody>
                                             <tfoot class="hide-if-no-paging">
-                                            <tr>
-                                                <td colspan="10" class="text-center">
-                                                    <ul class="pagination"></ul>
-                                                </td>
-                                            </tr>
                                             </tfoot>
                                         </table>
+                                    </div>
+                                </div>
+                                <div class="row ">
+                                    <div class="col-sm-12 text-center">
+                                        <tm-pagination conf="dayConf"></tm-pagination>
                                     </div>
                                 </div>
                             </div>
@@ -102,12 +95,14 @@
                             <div class="wrapper-md">
                                 <div class="row">
                                     <div class="col-sm-5 m-b-xs">
-                                        <select class="input-sm form-control w-sm inline v-middle">
-                                            <option value="0">浙江省</option>
+                                        <select class="input-sm form-control w-sm inline v-middle" ng-model="province"
+                                                ng-options="x.code as x.name for x in cities |cityFilter:null">
                                         </select>
-                                        <select class="input-sm form-control w-sm inline v-middle">
-                                            <option value="1">嘉兴市</option>
+                                        <select class="input-sm form-control w-sm inline v-middle" ng-model="city"
+                                                ng-show="province"
+                                                ng-options="x.id as x.name for x in cities |cityFilter:province">
                                         </select>
+                                        <button class="btn btn-sm btn-default">搜索</button>
                                     </div>
                                 </div>
                                 <div class="panel panel-default">
@@ -124,22 +119,22 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>浙江省</td>
-                                                <td>嘉兴市</td>
-                                                <td>30</td>
-                                                <td>20</td>
+                                            <tr ng-repeat="x in WeekList">
+                                                <td ng-bind="$index+1"></td>
+                                                <td ng-bind="x.provinceName"></td>
+                                                <td ng-bind="x.cityName"></td>
+                                                <td ng-bind="x.regCount"></td>
+                                                <td ng-bind="x.certifyCount"></td>
                                             </tr>
                                             </tbody>
                                             <tfoot class="hide-if-no-paging">
-                                            <tr>
-                                                <td colspan="10" class="text-center">
-                                                    <ul class="pagination"></ul>
-                                                </td>
-                                            </tr>
                                             </tfoot>
                                         </table>
+                                    </div>
+                                </div>
+                                <div class="row ">
+                                    <div class="col-sm-12 text-center">
+                                        <tm-pagination conf="disabledConf"></tm-pagination>
                                     </div>
                                 </div>
                             </div>
@@ -151,12 +146,14 @@
                             <div class="wrapper-md">
                                 <div class="row">
                                     <div class="col-sm-5 m-b-xs">
-                                        <select class="input-sm form-control w-sm inline v-middle">
-                                            <option value="0">浙江省</option>
+                                        <select class="input-sm form-control w-sm inline v-middle" ng-model="province"
+                                                ng-options="x.code as x.name for x in cities |cityFilter:null">
                                         </select>
-                                        <select class="input-sm form-control w-sm inline v-middle">
-                                            <option value="1">嘉兴市</option>
+                                        <select class="input-sm form-control w-sm inline v-middle" ng-model="city"
+                                                ng-show="province"
+                                                ng-options="x.id as x.name for x in cities |cityFilter:province">
                                         </select>
+                                        <button class="btn btn-sm btn-default">搜索</button>
                                     </div>
                                 </div>
                                 <div class="panel panel-default">
@@ -173,22 +170,25 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>浙江省</td>
-                                                <td>嘉兴市</td>
-                                                <td>30</td>
-                                                <td>20</td>
+                                            <tr ng-repeat="y in MonthList">
+                                                <td ng-bind="$index+1"></td>
+                                                <td ng-bind="y.provinceName"></td>
+                                                <td ng-bind="y.cityName"></td>
+                                                <td ng-bind="y.regCount"></td>
+                                                <td ng-bind="y.certifyCount"></td>
+                                            </tr>
+                                            <tr ng-show="MonthList.length==0;">
+                                                <td colspan="7" class="text-center text-muted">没有记录</td>
                                             </tr>
                                             </tbody>
                                             <tfoot class="hide-if-no-paging">
-                                            <tr>
-                                                <td colspan="10" class="text-center">
-                                                    <ul class="pagination"></ul>
-                                                </td>
-                                            </tr>
                                             </tfoot>
                                         </table>
+                                    </div>
+                                </div>
+                                <div class="row ">
+                                    <div class="col-sm-12 text-center">
+                                        <tm-pagination conf="paginationConf"></tm-pagination>
                                     </div>
                                 </div>
                             </div>
