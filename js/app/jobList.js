@@ -34,7 +34,7 @@ app.controller('applicationsList', ['$scope', '$modal', '$http', '$filter', 'api
             }
         });
         modalInstance.result.then(function () {
-            $scope.bringList.onChange()
+            $scope.bringList()
         });
     };
     //正常状态

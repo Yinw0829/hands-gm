@@ -9,17 +9,15 @@ app.controller('otherSet', ['$scope', '$modal', '$log', '$http', '$resource', 'a
                 url: $scope.url + 'account/changePwd',
                 method: 'POST',
                 isArray: false
+            },
+            vipList: {
+                url: $scope.url + 'vip/fee/option/list',
+                method: 'GET',
+                isArray: false
             }
         }
     );
-    $scope.url = api.url + 'vip/';
-    var getvip = $resource(
-        $scope.url + ':type',
-        {
-            enumName: '@enumName'
-        },{ }
-    );
-    getvip.get({type: 'fee/option/list'}, function (data) {
+    passwd.vipList(function (data) {
         $scope.VIPlist = data.rows;
     });
 
@@ -39,7 +37,7 @@ app.controller('otherSet', ['$scope', '$modal', '$log', '$http', '$resource', 'a
     };
     // VIP
     $scope.typeCompile = function (y) {
-            $scope.item = y;
+        $scope.item = y;
         var modalInstance = $modal.open({
             templateUrl: 'tpl/modal/modal.VIP.html',
             controller: 'ModalcheckCtrl',
@@ -52,16 +50,24 @@ app.controller('otherSet', ['$scope', '$modal', '$log', '$http', '$resource', 'a
             }
         });
         modalInstance.result.then(function () {
-            getvip.get({type: 'fee/option/list'}, function (data) {
+            passwd.vipList(function (data) {
                 $scope.VIPlist = data.rows;
             });
         })
     }
 }]);
-app.controller('ModalcheckCtrl', ['$scope', '$modalInstance', 'items', '$resource', function ($scope, $modalInstance, items, $resource) {
-    var redact = $resource($scope.url + 'fee/option/modify');
+//修改费用
+app.controller('ModalcheckCtrl', ['$scope', '$modalInstance', 'items', '$resource', '$http', '$stateParams', 'api', function ($scope, $modalInstance, items, $resource, $http, $stateParams, api) {
+    $scope.url = api.url;
+    var redact = $resource($scope.url, {}, {
+        getRedact: {
+            url: $scope.url + 'vip/fee/option/modify',
+            method: 'POST',
+            isArray: false
+        }
+    });
     $scope.redact = function (id) {
-        redact.save(
+        redact.getRedact(
             {
                 type: items.type,
                 money: $scope.money
@@ -70,23 +76,3 @@ app.controller('ModalcheckCtrl', ['$scope', '$modalInstance', 'items', '$resourc
             })
     };
 }]);
-
-//修改密码
-// app.controller('PasswordCtrl', ['$scope', '$modalInstance', '$filter', 'items', '$resource','$state', function ($scope, $modalInstance, $filter, items, $resource,$state) {
-//     var passwd = $resource($scope.url + 'account/changePwd');
-//     $scope.ok = function (){
-//         var data = {
-//             oldPassword: $scope.oldpassword,
-//             password: $scope.password
-//         };
-//         passwd.save(data,function (reg) {
-//             console.log(reg);
-//             if (reg.success){
-//                 $modalInstance.close(items);
-//                 $state.go('access.signin');
-//             }else{
-//                 $scope.authError=reg.msg;
-//             }
-//         });
-//     };
-// }]);

@@ -2,7 +2,7 @@
   <!-- .col -->
   <div class="col w-lg bg-light dk b-r bg-auto" id="aside">
     <div class="wrapper bg b-b">
-      <h5 class="m-n font-thin" ng-bind="item.name">嘉兴禾码科技服务有限公司</h5>
+      <h5 class="m-n font-thin" ng-bind="AllList.name"></h5>
     </div>
     <div class="wrapper">
       <div class="row">
@@ -10,25 +10,25 @@
           <div class="row row-sm text-center">
             <div class="col-sm-12">
               <div class="panel padder-v bg-success item">
-                <div class="h1 text-white font-thin h1" ng-bind="item.recruitApplySum"></div>
+                <div class="h1 text-white font-thin h1" ng-bind="AllList.recruitApplySum"></div>
                 <span class="text-muted text-xs">总申请数</span>
               </div>
             </div>
             <div class="col-sm-12">
               <a href class="block panel padder-v bg-primary item">
-                <span class="text-white font-thin h1 block" ng-bind="item.recruitCheckInSum"></span>
+                <span class="text-white font-thin h1 block" ng-bind="AllList.recruitCheckInSum"></span>
                 <span class="text-muted text-xs">入职数</span>
               </a>
             </div>
             <div class="col-sm-12">
               <a href class="block panel padder-v bg-info item">
-                <span class="text-white font-thin h1 block" ng-bind="item.recruitRefuseSum">1451</span>
+                <span class="text-white font-thin h1 block" ng-bind="AllList.recruitRefuseSum">1451</span>
                 <span class="text-muted text-xs">拒绝数</span>
               </a>
             </div>
             <div class="col-sm-12">
               <a href class="block panel padder-v bg-black item">
-                <span class="text-white font-thin h1 block" ng-bind="item.recruitWaitSum">1451</span>
+                <span class="text-white font-thin h1 block" ng-bind="AllList.recruitWaitSum">1451</span>
                 <span class="text-muted text-xs">未答复数</span>
               </a>
             </div>
@@ -43,44 +43,44 @@
     <div class="wrapper">
       <ul class="timeline">
         <li class="tl-header">
-          <div class="btn btn-info">最近</div>
+          <div class="btn btn-info" ng-hide="recently===true">最近</div>
         </li>
-        <li class="tl-item">
+        <li class="tl-item" ng-repeat="y in detailList">
           <div class="tl-wrap b-info">
-            <span class="tl-date">16-04-03</span>
+            <span class="tl-date" style="width: 5em!important;" ng-bind="y.cTime"></span>
             <div class="tl-content panel padder b-a block">
               <span class="arrow left pull-up"></span>
-              <b class="badge bg-info pull-right">促销员</b>
-              <div class="text-lt m-b-sm">欧尚派发传单，引导用户试吃</div>
+              <b class="badge bg-info pull-right" ng-bind="y.positionModel.name"></b>
+              <div class="text-lt m-b-sm" ng-bind="y.title"></div>
               <div class="panel-body pull-in b-t b-light">
                <div class="row">
-                 <div class="col-sm-3"><span class="text-muted">申请数：</span><span class="text-success">300</span></div>
-                 <div class="col-sm-3"><span class="text-muted">入职数：</span><span class="text-success">300</span></div>
-                 <div class="col-sm-3"><span class="text-muted">拒绝数：</span><span class="text-success">300</span></div>
-                 <div class="col-sm-3"><span class="text-muted">未答复：</span><span class="text-success">300</span></div>
+                 <div class="col-sm-3"><span class="text-muted">申请数：</span><span class="text-success" ng-bind="y.applyCount"></span></div>
+                 <div class="col-sm-3"><span class="text-muted">入职数：</span><span class="text-success" ng-bind="y.checkInCount"></span></div>
+                 <div class="col-sm-3"><span class="text-muted">拒绝数：</span><span class="text-success" ng-bind="y.refuseCount"></span></div>
+                 <div class="col-sm-3"><span class="text-muted">未答复：</span><span class="text-success" ng-bind="y.waitCount"></span></div>
                </div>
               </div>
             </div>
           </div>
         </li>
-        <li class="tl-item">
-          <div class="tl-wrap b-info">
-            <span class="tl-date">16-04-01</span>
-            <div class="tl-content panel padder b-a block">
-              <span class="arrow left pull-up"></span>
-              <b class="badge bg-info pull-right">促销员</b>
-              <div class="text-lt m-b-sm">大润发派发传单</div>
-              <div class="panel-body pull-in b-t b-light">
-                <div class="row">
-                  <div class="col-sm-3"><span class="text-muted">申请数：</span><span class="text-success">300</span></div>
-                  <div class="col-sm-3"><span class="text-muted">入职数：</span><span class="text-success">300</span></div>
-                  <div class="col-sm-3"><span class="text-muted">拒绝数：</span><span class="text-success">300</span></div>
-                  <div class="col-sm-3"><span class="text-muted">未答复：</span><span class="text-success">300</span></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </li>
+        <!--<li class="tl-item">-->
+          <!--<div class="tl-wrap b-info">-->
+            <!--<span class="tl-date">16-04-01</span>-->
+            <!--<div class="tl-content panel padder b-a block">-->
+              <!--<span class="arrow left pull-up"></span>-->
+              <!--<b class="badge bg-info pull-right">促销员</b>-->
+              <!--<div class="text-lt m-b-sm">大润发派发传单</div>-->
+              <!--<div class="panel-body pull-in b-t b-light">-->
+                <!--<div class="row">-->
+                  <!--<div class="col-sm-3"><span class="text-muted">申请数：</span><span class="text-success">300</span></div>-->
+                  <!--<div class="col-sm-3"><span class="text-muted">入职数：</span><span class="text-success">300</span></div>-->
+                  <!--<div class="col-sm-3"><span class="text-muted">拒绝数：</span><span class="text-success">300</span></div>-->
+                  <!--<div class="col-sm-3"><span class="text-muted">未答复：</span><span class="text-success">300</span></div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</li>-->
         <li class="tl-header">
           <div class="btn btn-sm btn-default btn-rounded">没有更多了...</div>
         </li>

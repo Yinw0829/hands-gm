@@ -67,6 +67,7 @@ app.controller('enterpriseList', ['$scope', '$modal', '$http', '$filter', 'api',
                     }, function (data) {
                         $scope.disabledConf.totalItems = data.total;
                         $scope.disabledList = data.rows;
+                        console.log($scope.disabledList);
                     });
             };
             $scope.$watch('disabledConf.currentPage + disabledConf.itemsPerPage', disabledConf)
@@ -132,64 +133,41 @@ app.controller('enterpriseList', ['$scope', '$modal', '$http', '$filter', 'api',
             }
         });
     };
-    //详细
-    // $scope.particular = function (userId) {
-    //     console.log(userId);
-    //     $scope.item = userId;
-    //     console.log($scope.item);
-    //     var modalInstance = $modal.open({
-    //         templateUrl: 'tpl/modal/EnterDetailed.html',
-    //         controller: 'ParticularCtrl',
-    //         size: 'lg',
-    //         scope: $scope,
-    //         resolve: {
-    //             items: function () {
-    //                 return $scope.item;
-    //             }
-    //         }
-    //     });
-    // }
 }]);
 //详细
 app.controller('ParticularCtrl', ['$scope', '$resource', '$http', '$stateParams', 'api', function ($scope, $resource, $http, $stateParams, api) {
     console.log('ParticularCtrl');
-    var stateId = $stateParams.id;
-    console.log(stateId);
-    // $scope.url=api.url;
-    // var getList=$resource($scope.url,{},{
-    //     getNumber:{
-    //         url:$scope.url+'enterprise/list',
-    //         method:'GET',
-    //         isArray:false
-    //     }
-    // });
-    // getList.getNumber({id:stateId},function (resp) {
-    //     console.log(resp)
-    // });
-    $scope.url = api.url;
-    var getList = $resource($scope.url, {}, {
-        getNor: {
-            url: $scope.url + 'enterprise/list',
-            method: 'GET',
-            isArray: false
+    var userId = $stateParams.id;
+    console.log(userId);
+    $scope.url=api.url;
+    var getList=$resource($scope.url,{},{
+        getNumber:{
+            url:$scope.url+'recruit/list',
+            method:'GET',
+            isArray:false,
+            params:{enterpriseUserId:'@enterpriseUserId'}
         },
-        getYes:{
-            url: $scope.url + 'recruit/list',
-            method: 'GET',
-            isArray: false
+        getAllNumber:{
+            url:$scope.url+'enterprise/load',
+            method:'GET',
+            isArray:false,
+            params:{id:'@id'}
         }
     });
-    getList.getNor({id: stateId}, function (resp) {
-        $scope.getEnter = resp.rows;
-        console.log($scope.getEnter);
+    $scope.recently = true;
+    getList.getNumber({enterpriseUserId:userId},function (resp) {
+        $scope.detailList = resp.rows;
+        console.log($scope.detailList);
+        if ($scope.detailList.length===0){
+            $scope.recently = true;
+        }else{
+            $scope.recently = false;
+        };
     });
-    getList.getYes({enterpriseUserId: stateId},function (resp) {
-        $scope.getOut = resp.rows;
-        console.log($scope.getOut);
+    getList.getAllNumber({id:userId},function (resp) {
+        $scope.AllList = resp.result;
+        console.log($scope.AllList);
     });
-    // $scope.return = function (id) {
-    //
-    // }
 }]);
 //延期委托控制器
 app.controller('ModalInstanceCtrl', ['$scope', '$modalInstance', '$filter', '$http', 'items', function ($scope, $modalInstance, $filter, $http, items) {
@@ -204,7 +182,7 @@ app.controller('ModalInstanceCtrl', ['$scope', '$modalInstance', '$filter', '$ht
         if ($scope.time) {
             $http({
                 method: 'POST',
-                url: 'hands/enterprise/delay',
+                url: 'api/enterprise/delay',
                 data: data,
                 headers: {'Content-Type': 'application/json'}
             }).success(function (data, status, headers, config) {

@@ -120,7 +120,7 @@ app.controller('ModalDemoCtrl', ['$scope', '$modal', '$http', '$filter', 'api', 
     };
     //重置
     $scope.reset = function (userId) {
-        $scope.resId = userId;
+        $scope.item = userId;
         var modalInstance = $modal.open({
             templateUrl: 'tpl/modal/management/modal.reset.html',
             controller: 'resetCtrl',
@@ -180,9 +180,13 @@ app.controller('ModalDemoCtrl', ['$scope', '$modal', '$http', '$filter', 'api', 
 }]);
 //重置
 app.controller('resetCtrl', ['$scope', '$modalInstance', '$resource', 'items', 'api', function ($scope, $modalInstance, $resource, items, api) {
-    var replacement = $resource($scope.url + 'reset');
-    $scope.OK = function (id) {
-        replacement.save({id: id}, function (resp) {
+    var replacement = $resource($scope.url + 'reset',
+        {id:'@id'},
+        {reset:{method: 'POST', isArray: false}}
+    );
+    $scope.OK = function (userId) {
+        console.log(userId);
+        replacement.reset({userId: userId}, function (resp) {
             $modalInstance.close(items)
         });
     };

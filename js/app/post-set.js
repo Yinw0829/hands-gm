@@ -10,10 +10,15 @@ app.controller('SelectCtrl', ['$scope', '$modal', '$log', '$http', '$resource', 
                 url:$scope.url+'load',
                 method:'GET',
                 isArray:false
+            },
+            postType:{
+                url:$scope.url+'type/list',
+                method:'GET',
+                isArray:false
             }
         }
     );
-    getSelect.get({type: 'type/list'}, function (data) {
+    getSelect.postType(function (data) {
         $scope.postLists = data.rows;
         console.log($scope.postLists);
     });
@@ -191,13 +196,6 @@ app.controller('typeDelCtrl', ['$scope', '$modalInstance', 'items', '$resource',
         typeDel.dataDelete({id: id}, function (data) {
             $modalInstance.close(items);
         });
-        // if ($scope.positionCount == 0){
-        //     typeDel.dataDelete({id: id}, function (data) {
-        //         $modalInstance.close(items);
-        //     })
-        // }else{
-        //     $scope.authError = '已有数据，不能删除！'
-        // }
     };
     $scope.cancel = function (id) {
         $modalInstance.close(items);

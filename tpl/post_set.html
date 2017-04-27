@@ -33,7 +33,7 @@
                                 <button class="btn  btn-sm btn-success btn-addon" ng-click="typeCompile(y.id)"><i
                                         class="icon icon-grid"></i>编辑
                                 </button>
-                                <button class="btn  btn-sm btn-warning  btn-addon" ng-click="del(y)"><i
+                                <button class="btn  btn-sm btn-warning  btn-addon" ng-show="y.positionCount===0" ng-click="del(y)"><i
                                         class="icon icon-grid"></i>删除
                                 </button>
                             </td>

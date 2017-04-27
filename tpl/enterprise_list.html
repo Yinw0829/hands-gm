@@ -129,15 +129,15 @@
                                 <td ng-bind="x.name"></td>
                                 <td ng-bind="x.province.name+'-'+x.city.name"></td>
                                 <td ng-bind="x.vipStatusName"></td>
-                                <td ng-bind="x.contractPerson"></td>
+                                <td ng-bind="x.contactPerson"></td>
                                 <td ng-bind="x.userModel.cellPhone"></td>
                                 <td ng-bind="x.regTime"></td>
                                 <td ng-bind="x.expireTime"></td>
                                 <td ng-bind="x.responseRate"></td>
                                 <td>
-                                    <button class="btn  btn-sm btn-success btn-addon" ng-click="particular()"><i
-                                            class="icon icon-grid"></i>详细
-                                    </button>
+                                    <!--<button class="btn  btn-sm btn-success btn-addon" ui-sref="app.enterprise_detailed({id:y.userId})"><i-->
+                                            <!--class="icon icon-grid"></i>详细-->
+                                    <!--</button>-->
                                     <button class="btn  btn-sm btn-info btn-addon" ng-click="enable(x)"><i
                                             class="fa fa-unlock"></i>启用
                                     </button>

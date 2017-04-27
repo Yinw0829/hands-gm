@@ -12,12 +12,12 @@
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label"><strong>浏览量：</strong></label>
-                        <label class=" control-label" ng-bind="item.title"></label>
+                        <label class=" control-label" ng-bind="item.clickCount"></label>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label"><strong>投递量：</strong></label>
-                        <label class=" control-label" ng-bind="item.title"></label>
-                    </div>
+                    <!--<div class="form-group">-->
+                        <!--<label class="col-sm-2 control-label"><strong>投递量：</strong></label>-->
+                        <!--<label class=" control-label" ng-bind="item.title"></label>-->
+                    <!--</div>-->
                     <div class="form-group">
                         <label class="col-sm-2 control-label"><strong>招聘岗位：</strong></label>
                         <label class=" control-label" ng-bind="item.positionModel.name"></label>
@@ -49,29 +49,29 @@
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label"><strong>职位描述：</strong></label>
-                        <label class="col-sm-10" ng-bind="item.description"></label>
+                        <label class="col-sm-10" ng-bind-html="item.description"></label>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label"><strong>申请记录：</strong></label>
-                        <div class="table-responsive">
-                            <table class="table table-striped b-t b-light">
-                                <thead>
-                                <tr>
-                                    <th>姓名</th>
-                                    <th>申请时间</th>
-                                    <th>状态</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>张三</td>
-                                    <td>2015.10.10</td>
-                                    <td>待邀请</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    <!--<div class="form-group">-->
+                        <!--<label class="col-sm-2 control-label"><strong>申请记录：</strong></label>-->
+                        <!--<div class="table-responsive">-->
+                            <!--<table class="table table-striped b-t b-light">-->
+                                <!--<thead>-->
+                                <!--<tr>-->
+                                    <!--<th>姓名</th>-->
+                                    <!--<th>申请时间</th>-->
+                                    <!--<th>状态</th>-->
+                                <!--</tr>-->
+                                <!--</thead>-->
+                                <!--<tbody>-->
+                                <!--<tr>-->
+                                    <!--<td>张三</td>-->
+                                    <!--<td>2015.10.10</td>-->
+                                    <!--<td>待邀请</td>-->
+                                <!--</tr>-->
+                                <!--</tbody>-->
+                            <!--</table>-->
+                        <!--</div>-->
+                    <!--</div>-->
                 </form>
             </div>
         </div>
